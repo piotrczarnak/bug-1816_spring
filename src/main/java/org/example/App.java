@@ -16,25 +16,15 @@
 
 package org.example;
 
-import com.microsoft.playwright.*;
 
+import org.example.browser.Test;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class App {
   public static void main(String[] args) {
-    for (int i = 0; i < 100_000; i++) {
-      runOnce();
-      System.out.println("Iteration: " + i);
-    }
+    SpringApplication.run(Test.class, args);
   }
 
-  private static void runOnce() {
-    try (Playwright playwright = Playwright.create()) {
-      Browser browser = playwright.webkit().launch();
-      BrowserContext context = browser.newContext();
-      Page page = context.newPage();
-      page.navigate("https://playwright.dev");
-      page.close();
-      context.close();
-      browser.close();      
-    }
   }
-}
